@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4 colores 3 y 4</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #contenedor {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <p>Presione las teclas</p>
+  <ul>
+    <li><b>a</b>: rosado</li>
+    <li><b>s</b>: naranjo</li>
+    <li><b>d</b>: celeste</li>
+  </ul>
+  <p>Presione para crear un elemento</p>
+  <ul>
+    <li><b>q</b>: morado</li>
+    <li><b>w</b>: gris</li>
+    <li><b>e</b>: café</li>
+  </ul>
+  <div id="contenedor">
+  </div>
+
+  <script src="assets/js/pintar.js"></script>
+  <script src="assets/js/crearCuadrado.js"></script>
+  <script src="assets/js/crearId.js"></script>
+  <script>
+    // scope global
+    let color
+    const colores = {
+      a: 'pink',
+      s: 'orange',
+      d: 'skyblue',
+      q: 'purple',
+      w: 'gray',
+      e: 'brown',
+    }
+
+    const contenedor = document.getElementById('contenedor')
+
+    crearCuadrado(contenedor, 'key', color, false)
+
+    document.addEventListener('keydown', function(event) {
+      console.log('event.key', event.key)
+        if (
+          event.key === 'a'
+          || event.key === 's'
+          || event.key === 'd'
+        ) {
+          const elKey = document.getElementById('key')
+
+          elKey.style.backgroundColor = colores[event.key]
+        }
+
+        if (
+          event.key === 'q'
+          || event.key === 'w'
+          || event.key === 'e'
+        ) {
+          // para los casos de crear un nuevo cuadrado con el color elegido
+          crearCuadrado(
+            contenedor,
+            'id-' + crearId(), // <- esto lo hago basado en https://dev.to/rahmanfadhil/how-to-generate-unique-id-in-javascript-1b13
+            colores[event.key],
+            false
+          )
+        }
+    })
+
+  </script>
+</body>
+</html>
